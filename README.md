@@ -10,7 +10,7 @@ This small project is meant for me to get my hands on Rust and experiment with t
 
 ## How to run the project?
 - Download [Rust](https://www.rust-lang.org/learn/get-started) 
-- In your command line, run `cargo run -- test.txt`
+- See supported commands below
 
 Note: This command uses the file stored at the root directory. You can test this command with your own file/input as well.
 
@@ -21,3 +21,9 @@ If I had some time, I would
 - use one type of I/O file reading (improve perfomance)
 
 
+## Supported commands 
+- `cargo run` (runs shell where accepting upto 10 user inputs)
+- `cargo run -- -c test.txt`
+- `cargo run -- -w test.txt`
+- `cargo run -- -l test.txt`
+- `cargo run -- -m test.txt`

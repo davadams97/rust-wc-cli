@@ -10,9 +10,9 @@ This small project is meant for me to get my hands on Rust and experiment with t
 
 ## How to run the project?
 - Download [Rust](https://www.rust-lang.org/learn/get-started) 
-- In your command line, run `cargo run -- src/test.txt`
+- In your command line, run `cargo run -- test.txt`
 
-Note: This uses the file stored in the `src/` directory. You can test with your own file as well.
+Note: This command uses the file stored at the root directory. You can test this command with your own file/input as well.
 
 ## For the future?
 If I had some time, I would

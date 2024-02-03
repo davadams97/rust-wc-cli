@@ -1,7 +1,7 @@
 # rust-wc-cli
 
 ## Description
-Quick Rust based CLI command that is meant to mimic the output from the "wc" command.
+Quick Rust based CLI command that is meant to mimic the behvaior of the "wc" command.
 
 Note: This program has limited functionality, it only accepts the following arguments `-c`, `-l`, `-m` and `-w`.
 

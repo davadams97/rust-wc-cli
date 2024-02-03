@@ -12,6 +12,9 @@ struct Cli {
     #[arg(short = 'l')]
     count_lines: bool,
 
+    #[arg(short = 'w')]
+    count_words: bool,
+
     path: std::path::PathBuf,
 }
 
@@ -31,6 +34,16 @@ fn main() -> Result<()>{
             total_lines += 1;
         }
         println!("Total lines: {}", total_lines);
+    } else if args.count_words {
+        let file = File::open(&args.path)?;
+        let reader = BufReader::new(file);
+        let mut word_count = 0;
+
+        for line in reader.lines() {
+            let line = line?;
+            word_count += line.split_whitespace().count();
+        }
+        println!("Total words: {}", word_count);
     }
 
     Ok(())

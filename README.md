@@ -14,3 +14,10 @@ This small project is meant for me to get my hands on Rust and experiment with t
 
 Note: This uses the file stored in the `src/` directory. You can test with your own file as well.
 
+## For the future?
+If I had some time, I would
+- work on cleaning up the function to make it more modular (separating logic into functions)
+- perform the file read once and store the word, line, and byte count 
+- use one type of I/O file reading (improve perfomance)
+
+

@@ -3,6 +3,7 @@ use anyhow::{Context, Result};
 use std::fs;
 use std::io::{BufRead, BufReader};
 use std::fs::File;
+use std::io::{Read};
 
 #[derive(Parser)]
 struct Cli {    
@@ -14,6 +15,9 @@ struct Cli {
 
     #[arg(short = 'w')]
     count_words: bool,
+    
+    #[arg(short = 'm')]
+    count_characters: bool,
 
     path: std::path::PathBuf,
 }
@@ -26,7 +30,7 @@ fn main() -> Result<()>{
         let total_bytes = file_content.len();
         println!("Total bytes: {}", total_bytes);
     } else if args.count_lines {
-        let file = File::open(&args.path)?;
+        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
         let reader = BufReader::new(file);
         let mut total_lines = 0;
 
@@ -35,7 +39,7 @@ fn main() -> Result<()>{
         }
         println!("Total lines: {}", total_lines);
     } else if args.count_words {
-        let file = File::open(&args.path)?;
+        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
         let reader = BufReader::new(file);
         let mut word_count = 0;
 
@@ -44,6 +48,12 @@ fn main() -> Result<()>{
             word_count += line.split_whitespace().count();
         }
         println!("Total words: {}", word_count);
+    } else if args.count_characters {
+        let mut file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
+        let mut content = String::new();
+
+        file.read_to_string(&mut content)?;
+        println!("Total characters: {}", content.chars().count());
     }
 
     Ok(())

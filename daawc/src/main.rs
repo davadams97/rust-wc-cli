@@ -28,35 +28,51 @@ fn main() -> Result<()>{
     if args.count_bytes {
         let file_content = fs::read(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
         let total_bytes = file_content.len();
-        println!("Total bytes: {}", total_bytes);
+        println!("Total bytes: {} {}", total_bytes, args.path.display());
     } else if args.count_lines {
-        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
+        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
         let reader = BufReader::new(file);
         let mut total_lines = 0;
 
         for _ in reader.lines() {
             total_lines += 1;
         }
-        println!("Total lines: {}", total_lines);
+        println!("Total lines: {} {}", total_lines, args.path.display());
     } else if args.count_words {
-        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
+        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
         let reader = BufReader::new(file);
-        let mut word_count = 0;
+        let mut total_words = 0;
 
         for line in reader.lines() {
             let line = line?;
-            word_count += line.split_whitespace().count();
+            total_words += line.split_whitespace().count();
         }
-        println!("Total words: {}", word_count);
+        println!("Total words: {} {}", total_words, args.path.display());
     } else if args.count_characters {
-        let mut file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;?;
+        let mut file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
         let mut content = String::new();
 
         file.read_to_string(&mut content)?;
-        println!("Total characters: {}", content.chars().count());
+        println!("Total characters: {} {}", content.chars().count(), args.path.display());
+    } else {
+        let file = File::open(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
+        let reader = BufReader::new(file);
+        let mut total_lines = 0;
+        let mut total_words = 0;
+
+        for line in reader.lines() {
+            let line = line?;
+            total_words += line.split_whitespace().count();
+            total_lines += 1;
+        }
+
+        let file_content = fs::read(&args.path).with_context(|| format!("could not read file `{}`", args.path.display()))?;
+        let total_bytes = file_content.len();
+        println!("{} {} {} {}", total_lines, total_words, total_bytes, args.path.display());
     }
 
     Ok(())
 }
+
 
 
